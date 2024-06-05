@@ -12,17 +12,7 @@
 
 
 /*
- * Description: assign uart instance to data structure, if variable was not assigned during instantiation
- * 	example: UART_IT_IDLE_RxInit(&uart_RXMsg, &huart2);
- *
- */
-void UART_IT_IDLE_Init(UART_IT_IDLE_Queue_t *msg, UART_HandleTypeDef *huart)
-{
-	msg->huart = huart;
-}
-
-/*
- * Description: Enable rx interrupt
+ * Description: Enable rx interrupt. Save the HAL status which we'll check later in main while loop;
  *
  */
 void UART_IT_IDLE_EnableRxInterrupt(UART_IT_IDLE_Queue_t *msg)
@@ -31,7 +21,7 @@ void UART_IT_IDLE_EnableRxInterrupt(UART_IT_IDLE_Queue_t *msg)
 }
 
 /*
- * Description: Call from polling routine
+ * Description: Call from polling routine. If HAL status != HAL_OK, then we need to try to enable Rx interrupt again.
  *
  */
 void UART_IT_IDLE_CheckRxInterruptErrorFlag(UART_IT_IDLE_Queue_t *msg)

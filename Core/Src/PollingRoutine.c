@@ -26,15 +26,14 @@ UART_IT_IDLE_Queue_t uart2 =
 	.rx.IT_dataSize = 36
 };
 
-
 void PollingInit(void)
 {
-	UART_IT_IDLE_EnableRxInterrupt(&uart2);
+	UART_IT_IDLE_EnableRxInterrupt(&uart2); // enable Rx interrupt
 
 	UART_IT_IDLE_NotifyUser(&uart2, "STM32 ready!", strlen("STM32 ready!"), true);
 
 	TimerCallbackRegisterOnly(&timerCallback, Blink_LED);
-	TimerCallbackTimerStart(&timerCallback, Blink_LED, 500, TIMER_REPEAT);
+	TimerCallbackTimerStart(&timerCallback, Blink_LED, 500, TIMER_REPEAT); // blink the LED
 }
 
 void PollingRoutine(void)
@@ -42,6 +41,8 @@ void PollingRoutine(void)
 	TimerCallbackCheck(&timerCallback);
 
 	UART2_Parse(&uart2);
+
+	UART_IT_IDLE_CheckRxInterruptErrorFlag(&uart2);
 }
 
 void UART2_Parse(UART_IT_IDLE_Queue_t *msg)

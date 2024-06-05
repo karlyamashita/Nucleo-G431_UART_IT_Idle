@@ -41,8 +41,6 @@ typedef struct
 	}tx;
 }UART_IT_IDLE_Queue_t;
 
-
-void UART_IT_IDLE_Init(UART_IT_IDLE_Queue_t *msg, UART_HandleTypeDef *huart);
 void UART_IT_IDLE_EnableRxInterrupt(UART_IT_IDLE_Queue_t *msg);
 void UART_IT_IDLE_CheckRxInterruptErrorFlag(UART_IT_IDLE_Queue_t *msg);
 int UART_IT_IDLE_MsgRdy(UART_IT_IDLE_Queue_t *msg);
